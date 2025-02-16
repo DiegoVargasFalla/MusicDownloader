@@ -1,6 +1,6 @@
 # MusicDownloader
 
-En esta ocasión he creado una aplicación para descargar música y videos con audio desde YouTube. Este es un proyecto de práctica que he realizado para mejorar mis habilidades de programación y es una herramienta muy útil para quienes desean descargar contenido de YouTube rápidamente.
+En esta ocasión he creado una aplicación para descargar música y videos con audio desde YouTube. Este es un proyecto para practicar un poco, es una herramienta muy útil para quienes desean descargar contenido de YouTube rápidamente.
 
 ## Descripción
 

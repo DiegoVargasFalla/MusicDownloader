@@ -32,6 +32,7 @@ from flet import (
     BottomSheet,
     LinearGradient,
     alignment,
+    DecorationImage
 )
 
 
@@ -108,7 +109,14 @@ class Cancion:
 
         try:
             # titulo
-            self.title = str(yt.title).replace("?", "")
+            self.title = (str(yt.title)
+                          .replace("?", "")
+                          .replace("<", "")
+                          .replace(">", "")
+                          .replace("|", "")
+                          .replace(":", "")
+                          .replace("*", "")
+                          )
 
             # si existe el archivo no cambia la variable exist_file y la deja en true
             if os.path.exists(os.path.expanduser("~\\Music\\" + self.title + ".mp3")):
@@ -146,6 +154,7 @@ class Cancion:
                 if os.path.exists(download_foulder):
                     # ruta final para guardar se une con el nombre de la cancion
                     self.miniatura_path = os.path.join(download_foulder, f"{self.title}.png")
+                    print(f"-> titulo", self.miniatura_path)
                     # crear el archivo de la imagen
                     with open(str(self.miniatura_path), 'wb') as file:
                         file.write(download.content)
@@ -405,8 +414,10 @@ class Dowloader_app:
         self.container_bground = Container(
             bgcolor="#40cf23",
             content=self.container_1,
-            image_src='assets/bground_lofi.png',
-            image_fit="FILL",
+            image=DecorationImage(
+                src="bground_lofi.png",
+                fit=ImageFit.FILL
+            ),
             expand=True,
             height=self.page.height,
             margin=-10,

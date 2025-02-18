@@ -191,8 +191,6 @@ class Cancion:
                           .replace("/", "")
                           )
             # si existe el archivo no cambia la variable exist_file y la deja en true
-            # BLESSD❌RYAN CASTRO❌BRYANT MYERS❌HADES 66 👀💙PALABRAS SOBRAN REMIX VIDEO OFICIAL
-            # BLESSD❌RYAN CASTRO❌BRYANT MYERS❌HADES 66 👀💙PALABRAS SOBRAN REMIX VIDEO OFICIAL
             if os.path.exists(os.path.expanduser("~\\Videos\\" + self.title + ".mp4")):
                 self.exist_file_video = True
             # si no existe el archivo se extrae la infomacion

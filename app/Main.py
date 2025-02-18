@@ -55,7 +55,6 @@ class Cancion:
         # funcion para descargar el audio
 
     def download_song_only_audio(self):
-        print("funcion original de descargar la cancion")
 
         yt = YouTube(self.link)
         # obtener la mejor resolucion
@@ -67,7 +66,7 @@ class Cancion:
             # descargar la cancion
             audio.download(output_path=file_path)
             self.error = False
-            print("-> cancion descargada ")
+
         except TypeError:
             self.error = True
 
@@ -95,9 +94,11 @@ class Cancion:
             """
 
             file_name = video.default_filename
+
             if os.path.exists(os.path.expanduser("~\\Videos\\" + file_name)):
                 os.rename(os.path.expanduser("~\\Videos\\" + file_name),
                           os.path.expanduser("~\\Videos\\" + self.title + ".mp4"))
+
             self.error_video = False
         except TypeError:
             self.error_video = True
@@ -116,13 +117,19 @@ class Cancion:
                           .replace("|", "")
                           .replace(":", "")
                           .replace("*", "")
+                          .replace("(", "")
+                          .replace(")", "")
+                          .replace("/", "")
                           )
 
+            print(self.title)
+
             # si existe el archivo no cambia la variable exist_file y la deja en true
-            if os.path.exists(os.path.expanduser("~\\Music\\" + self.title + ".mp3")):
+            if os.path.exists(os.path.expanduser("~\\Music\\" + self.title + ".m4a")):
                 self.exist_file = True
             # si no existe el archivo se extrae la infomacion
-            elif not os.path.exists(os.path.expanduser("~\\Music\\" + self.title + ".mp3")):
+            elif not os.path.exists(os.path.expanduser("~\\Music\\" + self.title + ".m4a")):
+
                 # auto
                 self.author = yt.author
 
@@ -149,12 +156,10 @@ class Cancion:
                         file.write(download.content)
                     self.exist_file = False
                     self.error = False
-                    print(self.exist_file)
 
                 if os.path.exists(download_foulder):
                     # ruta final para guardar se une con el nombre de la cancion
                     self.miniatura_path = os.path.join(download_foulder, f"{self.title}.png")
-                    print(f"-> titulo", self.miniatura_path)
                     # crear el archivo de la imagen
                     with open(str(self.miniatura_path), 'wb') as file:
                         file.write(download.content)
@@ -170,20 +175,31 @@ class Cancion:
     def video_info(self):
 
         yt = YouTube(self.link)
+
         try:
 
             # titulo
-            self.title = str(yt.title)
+            self.title = (str(yt.title)
+                          .replace("?", "")
+                          .replace("<", "")
+                          .replace(">", "")
+                          .replace("|", "")
+                          .replace(":", "")
+                          .replace("*", "")
+                          .replace("(", "")
+                          .replace(")", "")
+                          .replace("/", "")
+                          )
             # si existe el archivo no cambia la variable exist_file y la deja en true
+            # BLESSD❌RYAN CASTRO❌BRYANT MYERS❌HADES 66 👀💙PALABRAS SOBRAN REMIX VIDEO OFICIAL
+            # BLESSD❌RYAN CASTRO❌BRYANT MYERS❌HADES 66 👀💙PALABRAS SOBRAN REMIX VIDEO OFICIAL
             if os.path.exists(os.path.expanduser("~\\Videos\\" + self.title + ".mp4")):
-                print("Existe")
                 self.exist_file_video = True
             # si no existe el archivo se extrae la infomacion
             elif not os.path.exists(os.path.expanduser("~\\Videos\\" + self.title + ".mp4")):
-                print("No existe")
+
                 # auto
                 self.author = yt.author
-                # audio = yt.streams.get_audio_only()
 
                 # duracion de la cancion
                 time = yt.length
@@ -204,19 +220,26 @@ class Cancion:
                     self.miniatura_path = os.path.join(download_foulder, f"{self.title}.png")
                     self.exist_file_video = False
 
+                    new_miniature = self.miniatura_path.replace("?", "").replace("<", "").replace(">", "").replace("|", "").replace(":", "").replace("*", "").replace("(", "").replace(")", "")
+                    self.miniatura_path = new_miniature
                     # crear el archivo de la imagen
-                    with open(self.miniatura_path, 'wb') as file:
+                    with open(new_miniature, 'wb') as file:
                         file.write(download.content)
                 if os.path.exists(download_foulder):
                     # ruta final para guardar se une con el nombre de la cancion
                     self.miniatura_path = os.path.join(download_foulder, f"{self.title}.png")
 
+                    new_miniature_path = self.miniatura_path.replace("?", "").replace("<", "").replace(">", "").replace("|", "").replace("*", "").replace("(", "").replace(")", "").replace("/", "").replace("'\'", "")
+
+                    self.miniatura_path = new_miniature_path
+
                     # crear el archivo de la imagen
-                    with open(self.miniatura_path, 'wb') as file:
+                    with open(new_miniature_path, 'wb') as file:
                         file.write(download.content)
                 self.exist_file_video = False
         except TypeError:
-            self.exist_file_video = False
+            print("file not found")
+            self.exist_file_video = True
             self.error_video = True
 
     # funcion para verificar la conexion de wifi
@@ -716,7 +739,7 @@ class Dowloader_app:
                                                 width=155,
                                                 height=95,
                                                 content=Image(
-                                                    src=new_path,
+                                                    src=path,
                                                     fit=ImageFit.FILL,
                                                     width=200,
                                                     height=110
@@ -882,7 +905,7 @@ class Dowloader_app:
                                                 width=155,
                                                 height=95,
                                                 content=Image(
-                                                    src=new_path,
+                                                    src=path,
                                                     fit=ImageFit.FILL,
                                                     width=200,
                                                     height=110
